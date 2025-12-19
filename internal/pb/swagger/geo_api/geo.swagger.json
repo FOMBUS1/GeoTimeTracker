@@ -85,6 +85,10 @@
           "type": "string",
           "format": "uint64"
         },
+        "userId": {
+          "type": "string",
+          "format": "uint64"
+        },
         "longtitude": {
           "type": "number",
           "format": "float"

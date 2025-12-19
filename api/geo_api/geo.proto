@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package geo.service.v1;
 
-option go_package = "github.com/FOMBUS1/students/internal/pb/geo_api";
+option go_package = "github.com/FOMBUS1/GeoTimeTracker/internal/pb/geo_api";
 
 import "google/protobuf/timestamp.proto";
 import "models/geo_model.proto";
@@ -20,10 +20,11 @@ service GeoService {
 
 message LocationRequest {
     uint64 request_id = 1;
-    float longtitude = 2;
-    float latitude = 3;
-    bool departure = 4;
-    optional string customLocation = 5;
+    uint64 user_id = 2;
+    float longtitude = 3;
+    float latitude = 4;
+    bool departure = 5;
+    optional string customLocation = 6;
 }
 
 message LocationResponse {

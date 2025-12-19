@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package geo.models.v1;
+
 option go_package = "github.com/FOMBUS1/GeoTimeTracker/internal/pb/models";
 
 import "google/protobuf/timestamp.proto";

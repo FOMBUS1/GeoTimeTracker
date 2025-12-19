@@ -12,6 +12,7 @@ type Config struct {
 	Kafka    KafkaConfig    `yaml:"kafka"`
 	Redis    RedisConfig    `yaml:"redis"`
 	Server   ServerConfig   `yaml:"server"`
+	API	APIConfig `yaml:"api"`
 }
 
 type ServerConfig struct {
@@ -38,6 +39,10 @@ type RedisConfig struct {
 type KafkaConfig struct {
 	Host string `yaml:"host"`
 	Port uint16 `yaml:"port"`
+}
+
+type APIConfig struct {
+	Url string `yaml:"url"`
 }
 
 func LoadConfig(filename string) (*Config, error) {
