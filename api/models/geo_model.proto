@@ -1,12 +1,14 @@
 syntax = "proto3";
 
 package geo.models.v1;
+option go_package = "github.com/FOMBUS1/GeoTimeTracker/internal/pb/models";
 
 import "google/protobuf/timestamp.proto";
 
 message GeoModel {
     uint64 user_id = 1;
     bool departure = 2;
-    uint64 location = 3;
-    google.protobuf.Timestamp time = 4;
+    string locationAddress = 3;
+    optional string location = 4;
+    google.protobuf.Timestamp time = 5;
 }
