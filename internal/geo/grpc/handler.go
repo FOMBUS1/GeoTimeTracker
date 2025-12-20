@@ -53,7 +53,7 @@ func NewHandler(r *redis.Client, kw *kafka.Writer, cfg *config.Config) *Handler 
 }
 
 func (h *Handler) GetLocation(ctx context.Context, req *pb.LocationRequest) (*pb.LocationResponse, error) {
-	log.Printf("Запрос получен: ID=%v, Lat=%v, Long=%v", req.RequestId, req.Latitude, req.Longtitude)
+	log.Printf("Запрос получен: RequestID=%v, UserID=%v, Lat=%v, Long=%v", req.RequestId, req.UserId, req.Latitude, req.Longtitude)
 
 	cacheKey := fmt.Sprintf("geo:%.5f:%.5f", req.Latitude, req.Longtitude)
 	cachedAddress, err := h.redis.Get(ctx, cacheKey).Result()
