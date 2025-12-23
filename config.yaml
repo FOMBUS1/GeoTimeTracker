@@ -12,12 +12,12 @@ database:
   ssl_mode: "disable"
 
 redis:
-  host: "redis"
+  host: "localhost"
   port: 6379
   database: 0
 
 kafka:
-  host: "kafka"
+  host: "localhost"
   port: 9094
 
 api:

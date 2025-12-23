@@ -10,7 +10,7 @@ import "google/api/annotations.proto";
 
 // Сервис для получения координат и определения местоположения
 service GeoService {
-    rpc GetLocation (LocationRequest) returns (LocationResponse) {
+    rpc GetLocation (LocationRequests) returns (LocationResponse) {
         option (google.api.http) = {
             post: "/location/send"
             body: "*"
@@ -18,15 +18,19 @@ service GeoService {
     } 
 }
 
+message LocationRequests {
+    repeated LocationRequest locations = 1;
+}
+
 message LocationRequest {
     uint64 request_id = 1;
     uint64 user_id = 2;
-    float longtitude = 3;
+    float longitude = 3;
     float latitude = 4;
     bool departure = 5;
     optional string customLocation = 6;
 }
 
 message LocationResponse {
-    bool success = 1;
+    repeated bool success = 1;
 }

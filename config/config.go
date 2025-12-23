@@ -12,7 +12,7 @@ type Config struct {
 	Kafka    KafkaConfig    `yaml:"kafka"`
 	Redis    RedisConfig    `yaml:"redis"`
 	Server   ServerConfig   `yaml:"server"`
-	API	APIConfig `yaml:"api"`
+	API      APIConfig      `yaml:"api"`
 }
 
 type ServerConfig struct {
@@ -43,6 +43,7 @@ type KafkaConfig struct {
 
 type APIConfig struct {
 	Url string `yaml:"url"`
+	Key string
 }
 
 func LoadConfig(filename string) (*Config, error) {
@@ -56,6 +57,9 @@ func LoadConfig(filename string) (*Config, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to unmarshal YAML: %w", err)
 	}
+
+	key := os.Getenv("YANDEX_API_KEY")
+	config.API.Key = key
 
 	return &config, nil
 }

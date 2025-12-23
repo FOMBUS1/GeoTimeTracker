@@ -37,7 +37,7 @@ var (
 
 func request_GeoService_GetLocation_0(ctx context.Context, marshaler runtime.Marshaler, client GeoServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
-		protoReq LocationRequest
+		protoReq LocationRequests
 		metadata runtime.ServerMetadata
 	)
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
@@ -52,7 +52,7 @@ func request_GeoService_GetLocation_0(ctx context.Context, marshaler runtime.Mar
 
 func local_request_GeoService_GetLocation_0(ctx context.Context, marshaler runtime.Marshaler, server GeoServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
-		protoReq LocationRequest
+		protoReq LocationRequests
 		metadata runtime.ServerMetadata
 	)
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {

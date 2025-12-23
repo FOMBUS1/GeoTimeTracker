@@ -39,7 +39,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1LocationRequest"
+              "$ref": "#/definitions/v1LocationRequests"
             }
           }
         ],
@@ -89,7 +89,7 @@
           "type": "string",
           "format": "uint64"
         },
-        "longtitude": {
+        "longitude": {
           "type": "number",
           "format": "float"
         },
@@ -105,11 +105,26 @@
         }
       }
     },
+    "v1LocationRequests": {
+      "type": "object",
+      "properties": {
+        "locations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1LocationRequest"
+          }
+        }
+      }
+    },
     "v1LocationResponse": {
       "type": "object",
       "properties": {
         "success": {
-          "type": "boolean"
+          "type": "array",
+          "items": {
+            "type": "boolean"
+          }
         }
       }
     }

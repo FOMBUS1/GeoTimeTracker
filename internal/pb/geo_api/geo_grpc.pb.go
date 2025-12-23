@@ -28,7 +28,7 @@ const (
 //
 // Сервис для получения координат и определения местоположения
 type GeoServiceClient interface {
-	GetLocation(ctx context.Context, in *LocationRequest, opts ...grpc.CallOption) (*LocationResponse, error)
+	GetLocation(ctx context.Context, in *LocationRequests, opts ...grpc.CallOption) (*LocationResponse, error)
 }
 
 type geoServiceClient struct {
@@ -39,7 +39,7 @@ func NewGeoServiceClient(cc grpc.ClientConnInterface) GeoServiceClient {
 	return &geoServiceClient{cc}
 }
 
-func (c *geoServiceClient) GetLocation(ctx context.Context, in *LocationRequest, opts ...grpc.CallOption) (*LocationResponse, error) {
+func (c *geoServiceClient) GetLocation(ctx context.Context, in *LocationRequests, opts ...grpc.CallOption) (*LocationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LocationResponse)
 	err := c.cc.Invoke(ctx, GeoService_GetLocation_FullMethodName, in, out, cOpts...)
@@ -55,7 +55,7 @@ func (c *geoServiceClient) GetLocation(ctx context.Context, in *LocationRequest,
 //
 // Сервис для получения координат и определения местоположения
 type GeoServiceServer interface {
-	GetLocation(context.Context, *LocationRequest) (*LocationResponse, error)
+	GetLocation(context.Context, *LocationRequests) (*LocationResponse, error)
 	mustEmbedUnimplementedGeoServiceServer()
 }
 
@@ -66,7 +66,7 @@ type GeoServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGeoServiceServer struct{}
 
-func (UnimplementedGeoServiceServer) GetLocation(context.Context, *LocationRequest) (*LocationResponse, error) {
+func (UnimplementedGeoServiceServer) GetLocation(context.Context, *LocationRequests) (*LocationResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetLocation not implemented")
 }
 func (UnimplementedGeoServiceServer) mustEmbedUnimplementedGeoServiceServer() {}
@@ -91,7 +91,7 @@ func RegisterGeoServiceServer(s grpc.ServiceRegistrar, srv GeoServiceServer) {
 }
 
 func _GeoService_GetLocation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LocationRequest)
+	in := new(LocationRequests)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func _GeoService_GetLocation_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: GeoService_GetLocation_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GeoServiceServer).GetLocation(ctx, req.(*LocationRequest))
+		return srv.(GeoServiceServer).GetLocation(ctx, req.(*LocationRequests))
 	}
 	return interceptor(ctx, in, info, handler)
 }

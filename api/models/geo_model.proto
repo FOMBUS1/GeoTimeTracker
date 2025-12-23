@@ -6,7 +6,7 @@ option go_package = "github.com/FOMBUS1/GeoTimeTracker/internal/pb/models";
 
 import "google/protobuf/timestamp.proto";
 
-message GeoModel {
+message GeoKafkaMessage {
     uint64 user_id = 1;
     bool departure = 2;
     string locationAddress = 3;

@@ -1,4 +1,4 @@
-package storage
+package bootstrap
 
 import (
 	"context"
@@ -9,9 +9,9 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-func NewRedisClient(ctx context.Context, cfg config.RedisConfig) (*redis.Client, error) {
+func NewRedisClient(ctx context.Context, cfg *config.RedisConfig) (*redis.Client, error) {
 	client := redis.NewClient(&redis.Options{
-		Addr:         cfg.Host,
+		Addr:         fmt.Sprintf("%s:%d", cfg.Host, cfg.Port),
 		DB:           cfg.Database,
 		DialTimeout:  5 * time.Second,
 		ReadTimeout:  5 * time.Second,
