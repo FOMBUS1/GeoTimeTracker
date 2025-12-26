@@ -1,3 +1,36 @@
 syntax = "proto3";
 
 package geo.service.v1;
+
+option go_package = "github.com/FOMBUS1/GeoTimeTracker/internal/pb/geo_api";
+
+import "google/protobuf/timestamp.proto";
+import "models/geo_model.proto";
+import "google/api/annotations.proto";
+
+// Сервис для получения координат и определения местоположения
+service GeoService {
+    rpc GetLocation (LocationRequests) returns (LocationResponse) {
+        option (google.api.http) = {
+            post: "/location/send"
+            body: "*"
+        };
+    } 
+}
+
+message LocationRequests {
+    repeated LocationRequest locations = 1;
+}
+
+message LocationRequest {
+    uint64 request_id = 1;
+    uint64 user_id = 2;
+    float longitude = 3;
+    float latitude = 4;
+    bool departure = 5;
+    optional string customLocation = 6;
+}
+
+message LocationResponse {
+    repeated bool success = 1;
+}
