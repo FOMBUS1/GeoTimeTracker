@@ -109,6 +109,16 @@ func (s *GeoStatsServiceSuite) TestUpsertUserVisitsAnythingMatch() {
 	assert.NilError(s.T(), err)
 }
 
+func (s *GeoStatsServiceSuite) TestUpsertUserVisitsNilMessageInSlice() {
+	data := []*models.GeoKafkaMessage{nil}
+
+	s.geoStatsStorage.EXPECT().UpsertUserVisits(s.ctx, data).Return(errors.New("invalid data"))
+
+	err := s.geoStatsService.UpsertUserVisits(s.ctx, data)
+
+	assert.Check(s.T(), err != nil)
+}
+
 func TestExampleTestSuite(t *testing.T) {
 	suite.Run(t, new(GeoStatsServiceSuite))
 }
