@@ -18,7 +18,10 @@ func NewClient(apiKey, apiURL string) *Client {
 
 func (c *Client) Fetch(ctx context.Context, lat, long float32) (string, error) {
 	address := "Адрес не найден"
-	resp, err := http.Get(c.apiURL)
+	url := fmt.Sprintf(c.apiURL, c.apiKey, lat, long)
+
+	resp, err := http.Get(url)
+	
 	if err != nil {
 		return address, fmt.Errorf("ошибка запроса к Яндекс.Картам: %v", err)
 	}

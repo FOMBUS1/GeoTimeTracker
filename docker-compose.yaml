@@ -79,7 +79,7 @@ services:
   geo-service:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.geo
     container_name: geo-service
     restart: unless-stopped
     ports:
@@ -91,6 +91,33 @@ services:
       - DB_HOST=postgres
       - DB_PORT=5432
       - KAFKA_BROKERS=kafka:9094
+      - swaggerPath=internal/pb/swagger/geo_api/geo.swagger.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+    networks:
+      - geo-net
+  
+  geo-stats-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.geo-stats
+    container_name: geo-stats-service
+    restart: unless-stopped
+    ports:
+      - "50052:50051"
+      - "8081:8080"
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - KAFKA_BROKERS=kafka:9094
+      - swaggerPath=internal/pb/swagger/geo_stats_api/geo_stats.swagger.json
     depends_on:
       postgres:
         condition: service_healthy

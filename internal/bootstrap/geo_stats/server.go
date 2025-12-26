@@ -8,9 +8,10 @@ import (
 	"net/http"
 	"os"
 
-	server "github.com/FOMBUS1/GeoTimeTracker/internal/api"
+	server "github.com/FOMBUS1/GeoTimeTracker/internal/api/geo_stats_api"
+	usersgeoeventsconsumer "github.com/FOMBUS1/GeoTimeTracker/internal/consumer/users_geo_events_consumer"
 
-	"github.com/FOMBUS1/GeoTimeTracker/internal/pb/geo_api"
+	"github.com/FOMBUS1/GeoTimeTracker/internal/pb/geo_stats_api"
 	"github.com/go-chi/chi/v5"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -18,8 +19,8 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-func AppRun(api server.GeoServiceAPI) {
-	// go studentInfoUpsertConsumer.Consume(context.Background())
+func AppRun(api server.GeoStatsServiceAPI, usersGeoEventsConsumer *usersgeoeventsconsumer.UsersGeoEventsConsumer) {
+	go usersGeoEventsConsumer.Consume(context.Background())
 	go func() {
 		if err := runGRPCServer(api); err != nil {
 			panic(fmt.Errorf("failed to run gRPC server: %v", err))
@@ -31,7 +32,7 @@ func AppRun(api server.GeoServiceAPI) {
 	}
 }
 
-func runGRPCServer(api server.GeoServiceAPI) error {
+func runGRPCServer(api server.GeoStatsServiceAPI) error {
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		return err
@@ -39,7 +40,7 @@ func runGRPCServer(api server.GeoServiceAPI) error {
 
 	s := grpc.NewServer()
 
-	geo_api.RegisterGeoServiceServer(s, &api)
+	geo_stats_api.RegisterGeoStatsServiceServer(s, &api)
 
 	slog.Info("gRPC-server server listening on :50051")
 	return s.Serve(lis)
@@ -77,7 +78,7 @@ func runGatewayServer() error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 
-	err := geo_api.RegisterGeoServiceHandlerFromEndpoint(ctx, mux, ":50051", opts)
+	err := geo_stats_api.RegisterGeoStatsServiceHandlerFromEndpoint(ctx, mux, ":50051", opts)
 	if err != nil {
 		panic(err)
 	}

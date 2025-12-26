@@ -1,7 +1,7 @@
 package bootstrap
 
 import (
-	server "github.com/FOMBUS1/GeoTimeTracker/internal/api"
+	server "github.com/FOMBUS1/GeoTimeTracker/internal/api/geo_api"
 	geoService "github.com/FOMBUS1/GeoTimeTracker/internal/services/geo"
 )
 

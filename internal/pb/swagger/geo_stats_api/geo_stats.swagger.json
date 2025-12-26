@@ -1,0 +1,227 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "geo_stats_api/geo_stats.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "GeoStatsService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/get_location_stats": {
+      "post": {
+        "summary": "Получаем информацию о потраченном времени в конкретном месте за период",
+        "operationId": "GeoStatsService_GetLocationStats",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TimeSpentResponses"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UserLocationRequests"
+            }
+          }
+        ],
+        "tags": [
+          "GeoStatsService"
+        ]
+      }
+    },
+    "/get_top_time_spent": {
+      "post": {
+        "summary": "Получаем топ мест за период",
+        "operationId": "GeoStatsService_GetTopTimeSpent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TimeSpentResponses"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1TimePeriodRequests"
+            }
+          }
+        ],
+        "tags": [
+          "GeoStatsService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1LocationStat": {
+      "type": "object",
+      "properties": {
+        "locationId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "timeSeconds": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "period": {
+          "$ref": "#/definitions/v1Period"
+        }
+      }
+    },
+    "v1Period": {
+      "type": "string",
+      "enum": [
+        "LAST",
+        "DAY",
+        "WEEK",
+        "MONTH",
+        "YEAR"
+      ],
+      "default": "LAST"
+    },
+    "v1TimePeriodRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "period": {
+          "$ref": "#/definitions/v1Period"
+        },
+        "topK": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1TimePeriodRequests": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1TimePeriodRequest"
+          }
+        }
+      }
+    },
+    "v1TimeSpentResponse": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "stats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1LocationStat"
+          }
+        }
+      }
+    },
+    "v1TimeSpentResponses": {
+      "type": "object",
+      "properties": {
+        "responses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1TimeSpentResponse"
+          }
+        }
+      }
+    },
+    "v1UserLocationRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "locationId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "period": {
+          "$ref": "#/definitions/v1Period"
+        }
+      }
+    },
+    "v1UserLocationRequests": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1UserLocationRequest"
+          }
+        }
+      }
+    }
+  }
+}
