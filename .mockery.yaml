@@ -1,0 +1,9 @@
+packages:
+    github.com/FOMBUS1/GeoTimeTracker/internal/services/geoStats:
+        config:
+            dir: "{{.InterfaceDir}}/mocks"
+            filename: "mocks.go"
+            pkgname: "mocks"
+            structname: "{{.InterfaceName}}"
+        interfaces:
+            GeoStatsStorage:

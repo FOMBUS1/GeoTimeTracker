@@ -10,3 +10,10 @@ up:
 down:
 	docker-compose down
 
+.PHONY: cov
+cov:
+	go test -cover ./... 
+
+.PHONY: mock
+mock:
+	mockery
