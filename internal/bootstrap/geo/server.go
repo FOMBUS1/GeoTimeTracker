@@ -56,9 +56,6 @@ func runGatewayServer() error {
 	}
 
 	r := chi.NewRouter()
-	r.Get("/swagger.json/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/swagger.json", http.StatusMovedPermanently)
-	})
 
 	r.Get("/swagger.json", func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("Swagger endpoint is triggered")

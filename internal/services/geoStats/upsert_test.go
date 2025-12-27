@@ -1,4 +1,3 @@
-// package studentsService
 package geoStats
 
 import (

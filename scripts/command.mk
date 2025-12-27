@@ -12,7 +12,7 @@ down:
 
 .PHONY: cov
 cov:
-	go test -cover ./... 
+	go test -cover ./internal/services/geoStats
 
 .PHONY: mock
 mock:

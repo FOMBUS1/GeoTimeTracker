@@ -1,0 +1,9 @@
+mode: set
+github.com/FOMBUS1/GeoTimeTracker/internal/services/geoStats/geo_stats_service.go:20.96,24.2 1 1
+github.com/FOMBUS1/GeoTimeTracker/internal/services/geoStats/get_stats.go:9.149,11.16 2 1
+github.com/FOMBUS1/GeoTimeTracker/internal/services/geoStats/get_stats.go:11.16,13.3 1 1
+github.com/FOMBUS1/GeoTimeTracker/internal/services/geoStats/get_stats.go:15.2,17.8 1 1
+github.com/FOMBUS1/GeoTimeTracker/internal/services/geoStats/get_top_time_spent.go:9.146,11.16 2 1
+github.com/FOMBUS1/GeoTimeTracker/internal/services/geoStats/get_top_time_spent.go:11.16,13.3 1 1
+github.com/FOMBUS1/GeoTimeTracker/internal/services/geoStats/get_top_time_spent.go:14.2,16.8 1 1
+github.com/FOMBUS1/GeoTimeTracker/internal/services/geoStats/upsert_user_visits.go:9.109,11.2 1 1
